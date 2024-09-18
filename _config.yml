@@ -30,6 +30,9 @@ url: "asaplucky.github.io" # the base hostname & protocol for your site, e.g. ht
 twitter_username: jekyllrb
 github_username:  jekyll
 
+asset_url: /assets
+timezone: Asia/Seoul
+
 collections:
   authors:
     output: true
