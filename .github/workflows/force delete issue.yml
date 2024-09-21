@@ -1,0 +1,18 @@
+name: Force delete unauthorized writer's issue
+on:
+  issues:
+    types: [opened]
+jobs:
+  close-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - if: github.event.issue.user.login != github.repository_owner
+        name: Delete Issue
+        run: gh issue delete $NUMBER --yes
+        env:
+          # 삭제시에는 어드민 권한을 가진 GH TOKEN 을 만들어 secret 에 ISSUE_CLOSE_TOKEN 같은 이름으로 등록 해야함 
+          GH_TOKEN: ${{ secrets.ISSUE_CLOSE_TOKEN }} # admin role for delete  
+          GH_REPO:  ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
